@@ -17,6 +17,8 @@ static size_t	find_size(int n)
 	size_t	size;
 
 	size = 0;
+	if (n == 0)
+		return (1);
 	if (n < 0)
 		size++;
 	while (n)
@@ -29,24 +31,27 @@ static size_t	find_size(int n)
 
 char	*ft_itoa(int n)
 {
-	size_t	size;
-	char	*str;
+	size_t		size;
+	char		*str;
+	long long	num;
 
-	n = (long) n;
-	size = find_size(n);
+	num = (long long) n;
+	size = find_size(num);
 	str = (char *) malloc(sizeof(char) * (size + 1));
 	if (str == NULL)
 		return (NULL);
 	str[size] = '\0';
-	if (n < 0)
+	if (num == 0)
+		str[0] = '0';
+	if (num < 0)
 	{
 		str[0] = '-';
-		n = -n;
+		num = -num;
 	}
-	while (n)
+	while (num)
 	{
-		str[size - 1] = (n % 10) + '0';
-		n /= 10;
+		str[size - 1] = (num % 10) + '0';
+		num /= 10;
 		size--;
 	}
 	return (str);

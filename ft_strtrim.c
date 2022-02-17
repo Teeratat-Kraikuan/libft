@@ -28,7 +28,7 @@ static size_t	get_first_pos(char const *s1, char const *set)
 	size_t	i;
 
 	i = 0;
-	while (char_in_str(s1[i], set))
+	while (char_in_str(s1[i], set) && s1[i] != '\0')
 		i++;
 	return (i);
 }
@@ -38,7 +38,7 @@ static size_t	get_last_pos(char const *s1, char const *set)
 	size_t	i;
 
 	i = ft_strlen(s1) - 1;
-	while (char_in_str(s1[i], set))
+	while (char_in_str(s1[i], set) && i + 1 > 0)
 		i--;
 	return (i + 1);
 }
@@ -51,7 +51,14 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	first = get_first_pos(s1, set);
 	last = get_last_pos(s1, set);
-	str = (char *) malloc(sizeof(char) * (last - first + 1));
+	if (last >= first)
+		str = (char *) malloc(sizeof(char) * (last - first + 1));
+	else
+	{
+		str = (char *) malloc(sizeof(char));
+		str[0] = '\0';
+		return (str);
+	}
 	if (str == NULL)
 		return (NULL);
 	ft_memcpy(str, s1 + first, last - first);

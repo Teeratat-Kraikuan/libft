@@ -77,6 +77,6 @@ char	**ft_split(char const *s, char c)
 		while (s[i] != c && s[i] != '\0')
 			i++;
 	}
-	arr[i] = 0;
+	arr[j] = 0;
 	return (arr);
 }
